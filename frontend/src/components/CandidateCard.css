@@ -92,3 +92,8 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.vote-btn.voted {
+  background: #28a745;
+  opacity: 1;
+}

@@ -1,17 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useElectionStatus, STATUS } from '../hooks/useElectionStatus';
 import { useCandidates } from '../hooks/useCandidates';
+import { useHasVoted } from '../hooks/useHasVoted';
+import { useWallet } from '../hooks/useWallet';
 import { getReadContract } from '../utils/providers';
 import { CONTRACT_ADDRESS } from '../contract';
 import CandidateCard from '../components/CandidateCard';
+import VoteModal from '../components/VoteModal';
 import './Home.css';
 
 const ETHERSCAN_URL = `https://sepolia.etherscan.io/address/${CONTRACT_ADDRESS}`;
 
 export default function Home() {
+  const { account } = useWallet();
   const { status, loading: statusLoading } = useElectionStatus();
-  const { candidates, loading: candidatesLoading } = useCandidates();
+  const { candidates, loading: candidatesLoading, refresh: refreshCandidates } = useCandidates();
+  const { hasVoted, refresh: refreshHasVoted } = useHasVoted(account);
   const [winnerIds, setWinnerIds] = useState([]);
+  const [voteTarget, setVoteTarget] = useState(null); // 투표 모달 대상 후보자
 
   const totalVotes = candidates.reduce((sum, c) => sum + c.voteCount, 0);
 
@@ -25,6 +31,19 @@ export default function Home() {
         .catch(() => setWinnerIds([]));
     });
   }, [status]);
+
+  // ACTIVE 상태에서 투표 버튼 상태 결정
+  function getVoteButtonState() {
+    if (!account) return 'disabled';
+    if (hasVoted) return 'voted';
+    return 'active';
+  }
+
+  // 투표 완료 후 데이터 갱신
+  function handleVoteSuccess() {
+    refreshCandidates();
+    refreshHasVoted();
+  }
 
   if (statusLoading || candidatesLoading) {
     return <div className="home-loading">불러오는 중...</div>;
@@ -44,7 +63,7 @@ export default function Home() {
             <p className="candidate-count">등록된 후보자 {candidates.length}명 | 투표 시작 대기 중</p>
             <div className="card-grid">
               {candidates.map((c) => (
-                <CandidateCard key={c.id} candidate={c} showVotes={false} />
+                <CandidateCard key={c.id} candidate={c} showVotes={false} voteButtonState="hidden" />
               ))}
             </div>
           </>
@@ -55,6 +74,7 @@ export default function Home() {
 
   // ── ACTIVE ────────────────────────────────────
   if (status === STATUS.ACTIVE) {
+    const btnState = getVoteButtonState();
     return (
       <div className="home">
         <div className="election-banner banner-active">
@@ -67,10 +87,21 @@ export default function Home() {
               candidate={c}
               showVotes={true}
               totalVotes={totalVotes}
-              onVote={null} /* Phase 5에서 연결 */
+              voteButtonState={btnState}
+              onVote={btnState === 'active' ? setVoteTarget : null}
             />
           ))}
         </div>
+
+        {/* 투표 확인 모달 */}
+        {voteTarget && (
+          <VoteModal
+            candidate={voteTarget}
+            account={account}
+            onClose={() => setVoteTarget(null)}
+            onSuccess={handleVoteSuccess}
+          />
+        )}
       </div>
     );
   }
@@ -99,6 +130,7 @@ export default function Home() {
                   showVotes={true}
                   totalVotes={totalVotes}
                   isWinner={true}
+                  voteButtonState="hidden"
                 />
               ))}
             </div>
@@ -113,6 +145,7 @@ export default function Home() {
                 candidate={c}
                 showVotes={true}
                 totalVotes={totalVotes}
+                voteButtonState="hidden"
               />
             ))}
           </div>
