@@ -1,0 +1,89 @@
+.home {
+  padding: 8px 0;
+}
+
+.home-loading {
+  text-align: center;
+  padding: 60px;
+  color: #888;
+  font-size: 16px;
+}
+
+.election-banner {
+  padding: 14px 24px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.banner-ready {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.banner-active {
+  background: #d4edda;
+  color: #155724;
+}
+
+.banner-ended {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.empty-msg {
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+  margin-top: 40px;
+}
+
+.candidate-count {
+  text-align: center;
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+}
+
+.winner-section {
+  margin-bottom: 8px;
+}
+
+.winner-title {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.card-grid-winner {
+  justify-content: center;
+}
+
+.etherscan-link-wrap {
+  text-align: center;
+  margin-top: 36px;
+}
+
+.etherscan-link {
+  color: #4361ee;
+  font-size: 14px;
+  text-decoration: none;
+  border: 1px solid #4361ee;
+  padding: 8px 20px;
+  border-radius: 8px;
+}
+
+.etherscan-link:hover {
+  background: #4361ee;
+  color: white;
+}

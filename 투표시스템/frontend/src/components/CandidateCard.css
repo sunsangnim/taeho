@@ -1,0 +1,99 @@
+.candidate-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+  position: relative;
+  min-width: 180px;
+}
+
+.candidate-card.winner {
+  border-color: #f6c90e;
+  background: #fffde7;
+}
+
+.winner-badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f6c90e;
+  color: #333;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 3px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.candidate-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #eee;
+}
+
+.candidate-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+
+.vote-info {
+  width: 100%;
+}
+
+.vote-bar-wrap {
+  background: #e9ecef;
+  border-radius: 6px;
+  height: 10px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.vote-bar {
+  background: #4361ee;
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.4s ease;
+  min-width: 2px;
+}
+
+.vote-count {
+  text-align: center;
+  font-size: 14px;
+  color: #555;
+}
+
+.vote-btn {
+  background: #4361ee;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  width: 100%;
+}
+
+.vote-btn:hover:not(:disabled) {
+  background: #3451d1;
+}
+
+.vote-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.vote-btn.voted {
+  background: #28a745;
+  opacity: 1;
+}
