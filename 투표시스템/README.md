@@ -32,8 +32,8 @@ Ethereum Sepolia 테스트넷에 배포된 스마트 컨트랙트를 활용한 �
 ### 1. 코드 받기
 
 ```bash
-git clone https://github.com/sunsangnim/taeho.git
-cd taeho
+git clone https://github.com/sunsangnim/blockchain-vote-system.git
+cd blockchain-vote-system/투표시스템
 ```
 
 ### 2. 환경변수 파일 생성
