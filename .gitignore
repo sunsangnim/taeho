@@ -1,0 +1,31 @@
+# 빌드 출력
+out/
+x64/
+build/
+.vs/
+
+# 미디어 파일
+*.mp4
+*.wav
+*.avi
+*.mkv
+
+# 모델 파일 (용량 큼)
+*.bin
+
+# 컴파일 결과물
+*.exe
+*.dll
+*.obj
+*.lib
+*.pdb
+*.idb
+*.ilk
+
+# IDE
+.vs/
+*.user
+*.suo
+
+# 임시 파일
+temp_*
